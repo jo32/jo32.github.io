@@ -10,4 +10,4 @@ categories: algorithm
 你大爷的，我真不擅长玩这类谜题。
 After bruce force trying by hand for about 20 minutes for the solution and got nothing! I gave up. I decided to find the solution with the help of my computer by bruce force ...
 
-{% gist 34b327f0ca348fb68deb %}
+<script src="https://gist.github.com/jo32/34b327f0ca348fb68deb.js"></script>

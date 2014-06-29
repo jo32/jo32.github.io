@@ -57,4 +57,4 @@ categories: stats
 
 ## 代码
 
-{% gist 5da63d2cf27ded2bc5e1 %}
+<script src="https://gist.github.com/jo32/5da63d2cf27ded2bc5e1.js"></script>
