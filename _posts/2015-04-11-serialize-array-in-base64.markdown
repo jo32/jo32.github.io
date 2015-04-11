@@ -5,9 +5,10 @@ date:   2014-06-23 22:21:19
 categories: stats
 ---
 
-在工作中我们可能会经常遇到序列化一个对象成本文的情况，Javascript 提供的泛用方案是 JSON 对象，利用 `JSON.parse(...)` 和 和 `JSON.stringify(...)` 可以用来很轻易地序列化/反序列化那些本身和子属性可以用 `toString(...)` 方法的对象。
+在工作中我们可能会经常遇到序列化一个对象成本文的情况，Javascript 提供的泛用方案是 JSON 对象，利用 `JSON.parse(...)` 和 和 `JSON.stringify(...)` 可以用来很轻易地序列化/反序列化那些本身和子属性可以用 `toString(...)` 方法表示的对象。
 
 如果我们用 JSON.parse 来序列化包含 Number 的数组，固然是一个可行的方案，但是当数组的长度很长的时候，这种方案明显不高效。下面介绍一种利用 ArrayBuffer 和 Typed Array 的方法来较高效地序列化数组的方案。下述方法的 Runtime 为浏览器，在 NodeJS 下部分代码将有所不同。
+
 
 ## 将数组转化成 ArrayBuffer 对象
 
@@ -18,6 +19,7 @@ categories: stats
     }
 
 事实上，如果你的 Number 对象值的范围你有了解（例如 8 位 int 可以表示），你可以相应地用不同的 Typed Array 来生成 ArrayBuffer，使得 ArrayBuffer 占用的空间更小（例如可以用 Int8Array 来替代上述的 Float32Array）。
+
 
 ## 将 ArrayBuffer 对象转换成 base64
 
@@ -34,6 +36,7 @@ categories: stats
 
 上述代码的主要过程是将 ArrayBuffer 的每一个字节转换成字符串，再用 btoa 方法转换成 base64
 
+
 ## 将 base64 转换成 ArrayBuffer 对象
 
     function base64ToArrayBuffer(base64) {
@@ -48,6 +51,7 @@ categories: stats
     }
 
 这个方法是上述方法的逆过程。获得 ArrayBuffer 之后，你就可以根据需求选择相应的 Typed Array 对象来解析 ArrayBuffer。
+
 
 ## 一个更优化的使用例子
 
@@ -97,3 +101,14 @@ categories: stats
         var isBlack = (n >> position) & 1;
         return isBlack == 1;
     }
+
+
+## 使用例子：
+
+    [
+        [0, 1, 1],
+        [1, 1, 1],
+        [0, 1, 1]
+    ]
+
+这样的数组用 `JSON.string` 序列化得到的结果为：`[[0,1,1],[1,1,1],[0,1,1]`，而使用上述优化方法后得到的结果为：`Pr4=`。
