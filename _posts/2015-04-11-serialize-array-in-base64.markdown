@@ -10,7 +10,7 @@ categories: stats
 如果我们用 JSON.parse 来序列化包含 Number 的数组，固然是一个可行的方案，但是当数组的长度很长的时候，这种方案明显不高效。下面介绍一种利用 ArrayBuffer 和 Typed Array 的方法来较高效地序列化数组的方案。下述方法的 Runtime 为浏览器，在 NodeJS 下部分代码将有所不同。
 
 
-## 将数组转化成 ArrayBuffer 对象
+## 1. 将数组转化成 ArrayBuffer 对象
 
 下面这段代码将普通数组转换成 ArrayBuffer 对象
 
@@ -20,8 +20,15 @@ categories: stats
 
 事实上，如果你的 Number 对象值的范围你有了解（例如 8 位 int 可以表示），你可以相应地用不同的 Typed Array 来生成 ArrayBuffer，使得 ArrayBuffer 占用的空间更小（例如可以用 Int8Array 来替代上述的 Float32Array）。
 
+    >> (new Float32Array([1]).buffer).byteLength
+    << 4
 
-## 将 ArrayBuffer 对象转换成 base64
+由于 1 个 Number 转化成了 32 位的 Float 记录方法，也就是 4 个字节，所以返回的 ArrayBuffer 对象占的字节数是 4.
+
+
+## 2. ArrayBuffer 与 base64 之间的相互转换
+
+### 2.1. 将 ArrayBuffer 对象转换成 base64
 
     function arrayBufferToBase64(buffer) {
         var binary = '';
@@ -36,8 +43,14 @@ categories: stats
 
 上述代码的主要过程是将 ArrayBuffer 的每一个字节转换成字符串，再用 btoa 方法转换成 base64
 
+    >> arrayBufferToBase64((new Float32Array([1000000001.123, 1000000002.123, 1000000003.123, 1000000004.123, 1000000005.123, 1000000006.123]).buffer))
+    << KGtuTihrbk4oa25OKGtuTihrbk4oa25O
+    >> arrayBufferToBase64((new Int8Array([0, 1, 2, 3, 4, 5]).buffer))
+    << AAECAwQF
 
-## 将 base64 转换成 ArrayBuffer 对象
+由上述例子可以看到，根据 Number 的大小来选择不同的 Typed Array 来生成 ArrayBuffer 可以使得产生的 base64 尽可能小。
+
+### 2.2. 将 base64 转换成 ArrayBuffer 对象
 
     function base64ToArrayBuffer(base64) {
         // 在 NodeJS 下可以用 new Buffer(base64, 'base64').toString() 来替代。
@@ -52,12 +65,17 @@ categories: stats
 
 这个方法是上述方法的逆过程。获得 ArrayBuffer 之后，你就可以根据需求选择相应的 Typed Array 对象来解析 ArrayBuffer。
 
+    >> base64ToArrayBuffer('AAECAwQF').byteLength
+    << 6 // 对应着 new Int8Array([0, 1, 2, 3, 4, 5]).buffer
+    >> new Int8Array(base64ToArrayBuffer('AAECAwQF'))
+    << [0, 1, 2, 3, 4, 5]
+
 
 ## 一个更优化的使用例子
 
-我遇到了这么一个情况，我需要将集合 A 和集合 B 的无向对应情况用二位数组来表示，二位数组每一个元素的值只为 0 或 1，在这样的情况下，即使使用 Int8Array 来保存值是浪费的，因为每一个元素只需要用到 1 位来保存。
+我遇到了这么一个情况，我需要将集合 A 和集合 B 的无向对应情况用二维数组来表示，二维数组每一个元素的值只为 0 或 1，在这样的情况下，即使使用 Int8Array 来保存值是浪费的，因为每一个元素只需要用到 1 位来保存。
 
-我采取的解决方案是将连续的 8 个元素用 1 个字节来保存，以下是我的事例代码：
+我采取的解决方案是将连续的 8 个元素用 1 个字节来保存，以下是我的示例代码：
 
     Frame.prototype.twoDArrayToArrayBuffer = function(twoDArray) {
         var BITS_PER_NUMBER = 8;
