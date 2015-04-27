@@ -2,7 +2,7 @@
 layout: post
 title:  "在 Javascript 中用 base64 来序列化数组"
 date:   2014-06-23 22:21:19
-categories: stats
+categories: javascript
 ---
 
 在工作中我们可能会经常遇到序列化一个对象成本文的情况，Javascript 提供的泛用方案是 JSON 对象，利用 `JSON.parse(...)` 和 和 `JSON.stringify(...)` 可以用来很轻易地序列化/反序列化那些本身和子属性可以用 `toString(...)` 方法表示的对象。
