@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在 Javascript 中用 base64 来序列化数组"
-date:   2014-06-23 22:21:19
+date:   2015-04-11 22:21:19
 categories: javascript
 ---
 

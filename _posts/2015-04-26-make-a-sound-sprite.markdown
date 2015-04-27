@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "像合成“雪碧图”一样合成“雪碧音”"
-date:   2014-06-23 22:21:19
+date:   2015-04-26 22:21:19
 categories: javascript
 ---
 
