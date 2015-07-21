@@ -143,6 +143,8 @@ compile 你可以得到像如下的图片目录结构：
 
 在这里推荐 [gulp-compass](https://www.npmjs.com/package/gulp-compass) 这款插件，应该可以满足使用 compass 的一般需求。
 
+适当添加 gulp 插件，还可以添加将二倍图转换成单倍图的流程，但是转换后的图片可能存在模糊的情况出现，个人选择自己准备单倍图和多倍图。
+
 # 不足与感想
 
 Compass 还是一个功能相对比较强大的框架，可以利用各种 mixin 来满足一些需求，同时通过研究这些 mixin，加上 Sass 本身带有的 Programmatic 的一些特性，可以实现其他更高层次的需求。
