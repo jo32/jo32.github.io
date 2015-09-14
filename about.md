@@ -1,18 +1,11 @@
 ---
-layout: page
 title: About
 ---
 
-<p class="message">
-  If you want to contact me, check out the links below.
-</p>
+Hello.
 
-## Email
+The main purpose of this theme is to be as simple as it could be, so you can focus on writing your stuffs. This is your About page. You may describe about yourself here; who you are, what are you currently doing, share some of your projects, your social links and how people can contact you, etc.
 
-1. j.jolam # google mail
+**Just write thing that matters..**
 
-## links
-
-1. weibo: http://weibo.com/jo32
-2. github: http://github.com/jo32
-3. Google+: https://plus.google.com/112735778092864419421
+Enjoy!

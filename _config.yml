@@ -1,24 +1,59 @@
-# Dependencies
-markdown:         kramdown
-highlighter:      pygments
+# Site Info
+title:              "module.exports = jo32"
+description:        "Another blog"
+# google_verify:      epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o # Put your Google Verification here
+# google_analytics:   UA-XXXXXXX-X # Put your Google Analytics code
 
-# Permalinks
-permalink:        pretty
+# Author Info
+author_name:        "jo32"
+author_email:       j.jolam@gmail.com
+author_gravatar:    1188b6d814111d0c454200de590bb97d # Gravatar md5 hash
+twitter_username:   jo32
 
-# Setup
-title:            'module.exports = jo32'
-tagline:          'a blog about jo32'
-description:      'a blog about jo32'
-url:              http://jiangdl.com
-baseurl:          '/'
-paginate:         5
+# Site Settings
+url:                http://jiangdl.com
+baseurl:            "" # Base URL must end WITHOUT a slash, default: ""
+permalink:          /notes/:title # Post permalink
+timezone:           Asia/Hong_Kong
 
-author:
-  name:           'jo32'
-  url:            https://github.com/jo32
+# Site Build
+highlighter:        pygments
+markdown:           redcarpet
+#redcarpet:
+#    extensions:     ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "highlight", "footnotes"]
+markdown:           kramdown
+kramdown:
+    input:          GFM
+sass:
+    style:          :compressed
 
-# Custom vars
-version:          1.0.0
+# Other Params
+include:            [ "robots.txt" ]
+exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile" ]
+gems:
+  - jekyll-sitemap
 
 github:
   repo:           https://github.com/jo32/jo32.github.io
+
+compress_html:
+    clippings:      all
+    ingore:
+        envs:       [ "test" ]
+
+defaults:
+  -
+    scope:
+      path:         ""
+    values:
+      layout:       "null"
+  -
+    scope:
+      type:         "pages"
+    values:
+      layout:       "page"
+  -
+    scope:
+      type:         "posts"
+    values:
+      layout:       "post"
