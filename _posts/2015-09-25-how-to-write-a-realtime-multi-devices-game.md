@@ -45,19 +45,23 @@ http://static.aliyun.jiangdl.com:10080/double-pong/index.html?side=left
 
 ### 利用估算 RTT 同步设备间时钟
 
-若 $$abs(t_i - t_j)$$ 越小则 $$abs(f(t_i) - f(t_j))$$ 就越小，那么我们就可以通过估算设备之间通信的耗时来算出时间 $$t$$ 从设备 $$i$$ 传送到设备 $$j$$ 时，$$j$$ 收到信息时的时间，设 $$delay(i, j)$$ 为从设备 $$i$$ 传送到 $$i$$ 的时间，那么 $$delay(i, j)$$ 就可以用 $$RTT(i, j)/2$$ 来估算，其中 $$RTT(i, j)$$ 为消息从 $$i$$ 到 $$j$$ 再从 $$j$$ 到 $$i$$ 的时间。
+若 $$abs(t_i - t_j)$$ 越小则 $$abs(f(t_i) - f(t_j))$$ 就越小，那么我们就可以通过估算设备之间通信的耗时来算出时间 $$t$$ 从设备 $$i$$ 传送到设备 $$j$$ 时，$$j$$ 收到信息时的时间来减少误差，设 $$delay(i, j)$$ 为从设备 $$i$$ 传送到 $$i$$ 的时间，那么 $$delay(i, j)$$ 就可以用 $$RTT(i, j)/2$$ 来估算，其中 $$RTT(i, j)$$ 为消息从 $$i$$ 到 $$j$$ 再从 $$j$$ 到 $$i$$ 的时间。
 
 知道了 $$delay(i, j)$$ 之后，那么就可以同步时钟了不是？事实上大部分时候我们不需要真正同步时钟，我们只需要调整通过 $$delay$$ 来减少 $$Δ$$ 就行，下面以游戏中按下 Start / Restart 按钮开始游戏的时机要同步发生的例子为例，如果不知道 $$delay$$，假设 B 收到 A 开始游戏信号的时候：都运行如下代码：
 
-    setTimout(function() {
-        startGame();
-    }, 3000);
+``` 
+setTimout(function() {
+    startGame();
+}, 3000);
+```
 
 正如上述所说，因为有延迟，那么 A 和 B 的游戏开始将在不同的时间发生。但是有了 $$delay$$ 之后，我们就可以在 B 处运行以下代码来保证 A 和 B 同时开始游戏：
 
-    setTimout(function() {
-        startGame();
-    }, 3000 - delay);
+``` 
+setTimout(function() {
+    startGame();
+}, 3000 - delay);
+```
 
 ### 如何获取 RTT
 
