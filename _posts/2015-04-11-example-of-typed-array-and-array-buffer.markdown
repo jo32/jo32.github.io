@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "在 Javascript 中用 base64 来序列化数组"
+title:  "ArrayBuffer 和 Typed Array 使用例子"
 date:   2015-04-11 22:21:19
 categories: javascript
 ---
