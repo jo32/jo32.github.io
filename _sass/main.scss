@@ -2,6 +2,17 @@
   width: inherit !important;
 }
 
+aside.title {
+  max-width: 500px;
+  margin: auto;
+
+  h1 {
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 60px;
+  }
+}
+
 body {
   font-family: 'Fira Sans', sans-serif;
   padding: 20px;

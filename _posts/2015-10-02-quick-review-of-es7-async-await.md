@@ -45,7 +45,7 @@ aysnc/await 语法其实是语法糖，背后的原理大概是：
 
 ### async/await 版本
 
-    // Promise version
+    // async/await version
     function returnARandomValueAfter3s() {
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
@@ -78,7 +78,7 @@ aysnc/await 语法其实是语法糖，背后的原理大概是：
 1. await 后面必须接 Promise 对象。
 2. Promise reject 的 error 可以用 try/catch 捕获到，如果不捕获，并不会中断进程的运行。
 3. 不补抓的 error 可以在嵌套的 async 函数里向外冒泡。
-4. async 函数应当被 async 函数用 awati 调用。
+4. async 函数应当被 async 函数用 await 调用。
 
 ## 在实践中的代码是怎么样的
 
