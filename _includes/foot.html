@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="//fonts.useso.com/css?family=Fira+Sans">
 <script src='//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 <script type="text/javascript">
     if (window.WeixinJSBridge) {
-        document.write('<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"><\/script>');
+        document.write('<script src="//sofish.github.io/wechat.js/wechat.js"><\/script>');
 
         var $dom = document.querySelectorAll('article .content')[0];
         var desc = $dom ? ($dom.innerHTML.replace(/<.+?>/g, '').slice(0, 32)) + '...' : '';
@@ -10,16 +11,12 @@
             title: document.title,
             desc: desc,
             link: window.location.href,
-            imgUrl: 'http://jiangdl.com/assets/touch-icon.png',
-            success: function () {
-            },
-            cancel: function () { 
-            }
+            img: 'http://jiangdl.com/assets/touch-icon.png'
         };
 
-        wx.onMenuShareAppMessage(payload);
-        wx.onMenuShareTimeline(payload);
-        wx.onMenuShareWeibo(payload);
-        wx.onMenuShareQZone(payload);
+        var callback = function() {};
+
+        wechat('friend', data, callback);
+        wechat('timeline', data, callback);
     }
 </script>
