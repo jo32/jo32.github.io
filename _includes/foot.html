@@ -4,10 +4,10 @@
         document.write('<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"><\/script>');
 
         var $dom = document.querySelectorAll('article .content')[0];
-        var desc = $dom ? $dom.innerHTML.replace(/<.+?>/g, '').slice(0, 32) + '...' : '';
+        var desc = $dom ? ($dom.innerHTML.replace(/<.+?>/g, '').slice(0, 32)) + '...' : '';
 
         var payload = {
-            title: document.title, // 分享标题
+            title: document.title,
             desc: desc,
             link: window.location.href,
             imgUrl: 'http://jiangdl.com/assets/touch-icon.png',
@@ -15,7 +15,7 @@
             },
             cancel: function () { 
             }
-        }
+        };
 
         wx.onMenuShareAppMessage(payload);
         wx.onMenuShareTimeline(payload);
