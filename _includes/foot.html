@@ -1,22 +1,2 @@
 <link rel="stylesheet" href="//fonts.useso.com/css?family=Fira+Sans">
 <script src='//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-<script type="text/javascript">
-    if (window.WeixinJSBridge) {
-        document.write('<script src="//sofish.github.io/wechat.js/wechat.js"><\/script>');
-
-        var $dom = document.querySelectorAll('article .content')[0];
-        var desc = $dom ? ($dom.innerHTML.replace(/<.+?>/g, '').slice(0, 32)) + '...' : '';
-
-        var payload = {
-            title: document.title,
-            desc: desc,
-            link: window.location.href,
-            img: 'http://jiangdl.com/assets/touch-icon.png'
-        };
-
-        var callback = function() {};
-
-        wechat('friend', payload, callback);
-        wechat('timeline', payload, callback);
-    }
-</script>
