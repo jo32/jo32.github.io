@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Codeforce DP 问题从易到难"
-date:   2015-10-08 22:21:19
+date:   2015-10-12 22:21:19
 categories: algorithms
 ---
 
