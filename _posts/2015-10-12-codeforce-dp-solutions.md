@@ -25,10 +25,14 @@ categories: algorithms
                         (function(gist) {
                             for (var i in gist.files) {
                                 var file = gist.files[i];
-                                $('.gist-' + gist.id).append('<h3>' + file.filename + '</h3>');
-                                $.get(file.raw_url, function(data) {
-                                    $('.gist-' + gist.id).append('<pre><code>' + data + '</code></pre>');
-                                });
+                                $('.gist-' + gist.id)
+                                    .append('<h3>' + file.filename + '</h3>')
+                                    .append('<pre><code class="gist-content-' + file.filename + '"></code></pre>');
+                                (function(file) {
+                                    $.get(file.raw_url, function(data) {
+                                        $('.gist-content-' + file.filename).append('<pre><code>' + data + '</code></pre>');
+                                    });
+                                })(file);
                             }
                         })(resp[i]);
                     } else {
