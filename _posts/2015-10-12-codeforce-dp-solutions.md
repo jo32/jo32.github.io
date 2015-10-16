@@ -27,10 +27,10 @@ categories: algorithms
                                 var file = gist.files[i];
                                 $('.gist-' + gist.id)
                                     .append('<h3>' + file.filename + '</h3>')
-                                    .append('<pre><code class="gist-content-' + file.filename.split('.')[0] + '"></code></pre>');
+                                    .append('<pre><code class="gist-content-' + file.filename.replace('.', '-') + '"></code></pre>');
                                 (function(file) {
                                     $.get(file.raw_url, function(data) {
-                                        $('.gist-content-' + file.filename.split('.')[0]).html(data);
+                                        $('.gist-content-' + file.filename.replace('.', '-')).html(data);
                                     });
                                 })(file);
                             }
