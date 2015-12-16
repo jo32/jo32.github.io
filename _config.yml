@@ -11,7 +11,7 @@ author_gravatar:    1188b6d814111d0c454200de590bb97d # Gravatar md5 hash
 twitter_username:   jo32
 
 # Site Settings
-url:                https://jiangdl.com
+url:                http://jiangdl.com
 baseurl:            "" # Base URL must end WITHOUT a slash, default: ""
 permalink:          /notes/:title # Post permalink
 timezone:           Asia/Hong_Kong
