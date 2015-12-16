@@ -28,4 +28,14 @@ layout: compress
 
 	</body>
 	{% include foot.html %}
+	<script type="text/javascript">
+		function genToc() {
+			autoToc({
+				container: "article .content",
+				target: "#toc",
+				headingStartLevel: 2
+			});
+		}
+	</script>
+	<script async src="{{site.baseurl}}/assets/toc.js" onload="genToc()"></script>
 </html>

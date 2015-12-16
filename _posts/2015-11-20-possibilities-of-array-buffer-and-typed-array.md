@@ -5,30 +5,9 @@ date: 2015-10-12T22:21:19.000Z
 categories: javascript
 ---
 
-<!-- toc -->
+<div id="toc"></div>
 
-* [前言](#s1)
-* [TypedArray, ArrayBuffer, Blob 的转化关系](#s2)
-* [ArrayBuffer 简介](#s3)
-    * [获取 ArrayBuffer 的途径](#s31)
-        * [从 Base64 String 获取](#s311)
-        * [从文件（Blob）获取 ArrayBuffer](#s312)
-        * [从 Ajax 获取 ArrayBuffer](#s313)
-* [TypedArray 简介](#s4)
-    * [通过 ArrayBuffer 声明 TypedArray](#s41)
-* [Blob 简介](#s5)
-    * [由 ArrayBuffer 生成 Blob 对象，由 Blob 对象生成对应 DOM。](#s51)
-* [计算文件的 MD5 值](#s6)
-* [编辑 bmp 位图文件](#s7)
-* [动态“雪碧图”解决方案](#s8)
-    * [实现细节](#s81)
-    * [注意事项](#s82)
-* [例子地址](#s9)
-
-<!-- toc stop -->
-
-
-<h2 id="s1">前言</h2>
+## 前言
 
 本文介绍 TypedArray, ArrayBuffer, Blob 以及他们的简单的使用方法，同时会举两个应用例子：
 
@@ -36,7 +15,7 @@ categories: javascript
 2. 编辑 BMP 文件。
 3. 后台合并任意的文件请求，前端解析该请求并按需读取。
 
-<h2 id="s2">TypedArray, ArrayBuffer, Blob 的转化关系</h2>
+## TypedArray, ArrayBuffer, Blob 的转化关系
 
 首先可以简单地这么认为：Blob 代表的是一个文件，ArrayBuffer 代表的是文件的二进制内容，TypedArray 则是这些二进制内容用数表示的视图。
 
@@ -71,7 +50,7 @@ categories: javascript
 
 本文在下面的介绍过程当中会介绍到当中的几种情况。
 
-<h2 id="s3">ArrayBuffer 简介</h2>
+## ArrayBuffer 简介
 
 ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
 
@@ -79,11 +58,11 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
 
 简而言之 ArrayBuffer 的一个实例就是可以理解为一个文件的二进制原始数据了。我们不能够直接操作 ArrayBuffer 对象，但是可以通过 TypedArray 来操作。
 
-<h3 id="s31">获取 ArrayBuffer 的途径</h3>
+### 获取 ArrayBuffer 的途径
 
 一下介绍主要对应浏览器环境，在 NodeJS 上面可能会有更多的快捷方法。
 
-<h4 id="s311">从 Base64 String 获取</h4>
+#### 从 Base64 String 获取
 
 下面介绍一个方案，这个方案是的思路是先将 Base64 转换成普通的 String，将 String 转换成数据，再通过 Array.buffer 获取 ArrayBuffer
 
@@ -98,7 +77,7 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
         return bytes.buffer;
     }
 
-<h4 id="s312">从文件（Blob）获取 ArrayBuffer</h4>
+#### 从文件（Blob）获取 ArrayBuffer
 
 假设你有一个 input：
 
@@ -125,7 +104,7 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
         console.log(buffer)
     });
 
-<h4 id="s313">从 Ajax 获取 ArrayBuffer</h4>
+#### 从 Ajax 获取 ArrayBuffer
 
     function ajaxAsArrayBuffer(url) {
         return new Promise(function(resolve, reject) {
@@ -143,7 +122,7 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
         console.log(buffer);
     });
 
-<h2 id="s4">TypedArray 简介</h2>
+## TypedArray 简介
 
 一个 TypedArray 对象描述了一个二进制数据 Buffer 的数据视图。
 
@@ -163,7 +142,7 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
 
 例如 Int8Array 的每一个元素是一个 8 位的有符号补码数，Uint8Array 对应的是 8 位无符号数。
 
-<h3 id="s41">通过 ArrayBuffer 声明 TypedArray</h3>
+### 通过 ArrayBuffer 声明 TypedArray
 
 声明 TypedArray 的方式很简单，以 ArrayBuffer 为参数即可声明：
 
@@ -173,7 +152,7 @@ ArrayBuffer 用于表示通用的，定长的原始二进制数据 buffer。
 
     int32View[0] >>>= 1;
 
-<h2 id="s5">Blob 简介</h2>
+## Blob 简介
 
 Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
 
@@ -181,7 +160,7 @@ Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
 
 个人将 Blob 看作一个放置于内存的文件的对象。
 
-<h3 id="s51">由 ArrayBuffer 生成 Blob 对象，由 Blob 对象生成对应 DOM。</h3>
+### 由 ArrayBuffer 生成 Blob 对象，由 Blob 对象生成对应 DOM。
 
 通过 ArrayBuffer, TypedArray, Blob 对象本身, DOMString 都可以新建一个 Blob 对象，例如：
 
@@ -194,7 +173,7 @@ Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
     var url = (window.URL || window.webkitURL).createObjectURL(oMyBlob);
     img.src = url;
 
-<h2 id="s6">计算文件的 MD5 值</h2>
+## 计算文件的 MD5 值
 
 假设有这么一个 HTML 文件：
 
@@ -245,7 +224,7 @@ Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
 
 可以得到 `bundle.js`
 
-<h2 id="s7">编辑 bmp 位图文件</h2>
+## 编辑 bmp 位图文件
 
 假设有这么一个 HTML 文件：
 
@@ -331,9 +310,9 @@ Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
 
 可以得到 `bundle.js`
 
-<h2 id="s8">动态“雪碧图”解决方案</h2>
+## 动态“雪碧图”解决方案
 
-<h3 id="s81">实现细节</h3>
+### 实现细节
 
 这里所说的“雪碧图”并不是真的雪碧图，基本思路是这样的：
 
@@ -584,13 +563,13 @@ Blob 对象用于描述一次类似于文件的，不可改变的原始数据。
         })
     });
 
-<h3 id="s82">注意事项</h3>
+### 注意事项
 
 1. 这种方案空间优势明显，通过传不同的参数还可以实现增量更新等。
 2. 使用这种方案就等于完全抛弃了浏览器本身的请求/缓存策略，缓存等事情需要自己来解决，这是需要权衡的问题。
 3. 虽然空间上没有那么高效（其实也不一定），SPDY/HTTP2 是本方案的替代方案，作为 SPDY/HTTP2 还没有普及的情况下，可以作为一种折衷成为合并请求的普遍解决方案。
 
-<h2 id="s9">例子地址</h2>
+## 例子地址
 
 所有例子通过 Github 地址：
 
