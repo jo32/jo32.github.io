@@ -264,6 +264,10 @@ table {
 iframe {
   width: 100%;
 }
+#disqus_thread {
+    max-width: 500px;
+    margin: 0 auto;
+}
 article {
   max-width: 500px;
   margin: 0 auto;
