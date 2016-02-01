@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 支持像 aa.bb.cc 这样的链式表达式的 React LinkedStateMixin
-date: 2015-10-12T22:21:19.000Z
+date: 2016-02-01T19:18:19.000Z
 categories: javascript
 ---
 
