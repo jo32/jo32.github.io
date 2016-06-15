@@ -96,3 +96,5 @@ https://github.com/davidbau/seedrandom
 ## 总结
 
 事实对战游戏，如果动作的操作频率小于 $$RTT/2$$ 的情况下是完全可以做到的，如果操作频率大于 $$RTT/2$$ 的情况，可以通过改变游戏的规则和考虑用户体验的情况下来在工程上实现。
+
+<script async src='//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>

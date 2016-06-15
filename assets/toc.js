@@ -59,7 +59,9 @@ var autoToc = (function() {
         }
         target = Object.prototype.toString.apply(target) == '[object String]' ? document.querySelector(target) : target;
         var tocString = getTocString(container, headingStartLevel);
-        target.innerHTML = tocString;
+        if (target && target.innerHTML) {
+            target.innerHTML = tocString;
+        }
     }
 
 })();
