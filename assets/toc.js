@@ -5,7 +5,7 @@ var autoToc = (function() {
         var currentNode = document.querySelector(container + ' h' + headingStartLevel);
         var counter = 0;
         while (currentNode) {
-            if (currentNode.tagName.match(/^H[1-9]$/)) {
+            if (currentNode.tagName && currentNode.tagName.match(/^H[1-9]$/)) {
                 var id = "SECTION-" + ++counter;
                 currentNode.setAttribute('id', id);
                 array.push({
