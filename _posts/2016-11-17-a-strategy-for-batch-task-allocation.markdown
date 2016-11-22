@@ -103,8 +103,8 @@ FROM wxg_wechat_pay_app::t_inf_t_mkttaskdetail_day t1
   AND t1.flast_update_time = t2.flast_update_time WHERE t1.fcreate_time >= '${start_time}' AND t1.fcreate_time < '${end_time}'
 ```
 
-在数据需要重用的情况下
+在数据需要重用的情况下，第二个任务按照数据量可以缩短至 4s 至 1min，更多的数据后续补充。
 
 # 不足
 
-首先需要明确的是，上面的策略只是一种“启发式”的策略，
+首先需要明确的是，上面的策略只是一种“启发式”的策略，并不能保证得到的调度序列是最优解；事实上即使得到当天队列状态调度的最优解，由于未来是不确定的，任何调度都可能致使后续调度恶化，所以我们这里不仅对任务的本身的属性进行调度，还根据公平性等考虑因素对资源进行调度。
