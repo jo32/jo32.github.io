@@ -2,7 +2,7 @@
 layout: post
 title:  "ES7 async/await saves the day"
 date:   2015-10-02 18:53:00
-categories: css
+categories: javascript
 ---
 
 aysnc/await 语法其实是语法糖，背后的原理大概是：
