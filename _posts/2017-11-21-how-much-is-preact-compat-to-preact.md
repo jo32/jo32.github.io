@@ -1,17 +1,17 @@
 ---
 layout: post
-title:  "Preact对React有多兼容？"
+title:  "Preact 对 React 有多兼容？"
 date:   2017-11-21 12:53:31
 categories: javascript
 ---
 
-# Preact对React有多兼容？
+# Preact 对 React有多兼容？
 
 ## 背景
 
 最近收到部门通知，需要求替换 Facebook 旗下所有开源项目。而作为 Facebook 最大的开源项目之一的 React 在微信支付一些内部项目有应用到，虽然 React 的开源协议已经替换为 MIT 协议了，但替换 React 还是被提到了日程。
 
-鉴于在微信支付内部用到 React 的项目数量比较多，我们首选的并不是用 Vue 等框架来重构这些项目，而且选用 API 与 React 一样的无缝替代方案来替代 React。前期我们初步调研了 Github 上 Star 数比较多的两个方案 Preact 和 InfernoJS，在兼容至 IE8 的目标上，Preact 和 InfernoJS 两个方案都不能满足，具体如下：
+鉴于在微信支付内部用到 React 的项目数量比较多，我们首选的并不是用 Vue 等框架来重构这些项目，而是选用 API 与 React 一样的无缝替代方案来替代 React。前期我们初步调研了 Github 上 Star 数比较多的两个方案 Preact 和 InfernoJS，在兼容至 IE8 的目标上，Preact 和 InfernoJS 两个方案都不能满足，具体如下：
 
 |不兼容特性/兼容库|preact|infernojs|
 |---|---|---|
@@ -31,7 +31,7 @@ categories: javascript
 
 ## 初步尝试
 
-我们首先在尝试在我们 React+Redux+ReactRouter 技术栈（[请看这个 DEMO](http://xphp.oa.com/fe/crr-doc/todomvc/#/pages/index/index)）和两三个依赖较少的内部项目上尝试用 Preact 替代 React，发现没有问题。但是在有些用了 antd 的库的项目的某些组件的兼容上有问题，交互不能正常完成。为了全面采用 Preact， 我们需要对 Preact 对 React 的兼容性进行全面的了解，因为我们想到了**用 Preact 跑 React 15-stable 分支的 1347 个测试用例，看测试结果如何来判定 Preact 的兼容性**。
+我们首先在尝试在我们 React+Redux+ReactRouter 技术栈（[请看这个 DEMO](http://xphp.oa.com/fe/crr-doc/todomvc/#/pages/index/index)）和两三个依赖较少的内部项目上尝试用 Preact 替代 React，发现没有问题。但是在有些用了 antd 的库的项目的某些组件的兼容上有问题，交互不能正常完成。为了全面采用 Preact， 我们需要对 Preact 对 React 的兼容性进行全面的了解，因而我们想到了**用 Preact 跑 React 15-stable 分支的 1347 个测试用例，看测试结果如何来判定 Preact 的兼容性**。
 
 ## Preact 跑 React 的测试用例
 
@@ -50,7 +50,7 @@ categories: javascript
 |create-react-class\*|preact-compat/lib/create-react-class\*|
 |renderSubtreeIntoContainer|require('preact-compat').unstable_renderSubtreeIntoContainer|
 
-经过替换之后，我们对 React 的测试进行运行，结果如下：
+经过替换之后，我们运行 React 的测试用例，结果如下：
 
     Test Suites: 75 failed, 1 skipped, 30 passed, 105 of 106 total
     Tests:       769 failed, 6 skipped, 572 passed, 1347 total
@@ -72,7 +72,7 @@ categories: javascript
 以上这些可以说是内部实现相关的，对我们的兼容性分析无关，我们先忽略这部分测试用例，对剩下的 421 个测试用例进行分析，这些测试用例应该就反映了 Preact 的不兼容性。经过再一轮分析之后，我们发现了以下一些不通过的测试用例：
 
 |理由|数量|
-|---|---|
+|-----|------|
 |边界情况未处理|60|
 |Server Rendering 相关|17|
 |preact-test-util 没有 findRenderedComponentWithType 方法|11|
@@ -102,7 +102,7 @@ categories: javascript
 4. preact 的 ELement 的 prototype 为 VNode, React 的 ELement 的 prototype 为 Object
 5. preact 的 isValidElement 不能识别 Element 经过 JSON.stringify 后再 parse 的对象，preact 的isValidElement 使用 prototype 来识别是否是 Element。
 
-发现缺少的方法和属性：
+发现缺少的 API：
 
 1. 缺少 ReactDOM.unstable_batchUpdate 方法
 2. 缺少 React.createMixin
@@ -112,6 +112,6 @@ categories: javascript
 
 ## 结论和建议
 
-通过用例分析，发现还是有 Preact 对 React 还是有不少兼容性问题，初步估计大概 1/5 用例反映了 Preact 对 React 的兼容性问题。对于这个结果其实也在我们的预料之内，因为 Preact 的代码量，社区规模和应用范围和 React 都不在一个数量级上。尽管如此，用 Preact 替代 React 还是能够在我们大部分项目中成功替换，跑起来没有问题（替换成功可能得益于 1. 我们的项目依赖库比较少。 2. 我们项目推荐使用 PureComponent 实现视图层，用 Redux 管理数据并驱动视图层展现，所以涉及 React 的功能相对比较集中和统一）。
+通过对结果分析，发现还是有 Preact 对 React 还是有不少兼容性问题，初步估计大概 1/5 用例反映了 Preact 对 React 的兼容性问题。对于这个结果其实也在我们的预料之内，因为 Preact 的代码量，社区规模和应用范围和 React 都不在一个数量级上。尽管如此，用 Preact 替代 React 还是能够在我们大部分项目中成功替换，跑起来没有问题（替换成功可能得益于 1. 我们的项目依赖库比较少。 2. 我们项目推荐使用 PureComponent 实现视图层，用 Redux 管理数据并驱动视图层展现，所以涉及 React 的功能相对比较集中和统一）。
 
 所以这些失败的用例不一定跟你们的项目代码相关，我们推荐还是使用 Preact 尝试替换你们的项目看看是否有问题。
